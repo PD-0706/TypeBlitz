@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TypeBlitz — How Fast Are You?</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<div class="contact-popup" id="contactPopup">
+  <div class="contact-card glass-card">
+    <button class="close-contact" id="closeContact">✕</button>
+
+    <h3>Get in Touch</h3>
+    <p>Want to connect or check out more work?</p>
+
+    <a href="mailto:princedutta766@gmail.com">📧 princedutta766@gmail.com</a>
+    <a href="https://github.com/yourusername" target="_blank">💻 GitHub</a>
+    <a href="#" target="_blank">🌐 Portfolio</a>
+  </div>
+</div>
+<body>
+
+  <!-- Mouse glow follower -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Animated background grid -->
+  <div class="bg-grid"></div>
+  <div class="bg-streaks" id="bgStreaks"></div>
+
+  <!-- NAV -->
+  <nav class="glass-nav">
+    <div class="nav-logo">
+      <span class="logo-icon">💠</span>
+      <span class="logo-text">TypeBlitz</span>
+    </div>
+    <div class="nav-links">
+      <a href="#" class="nav-link active" data-section="test">Test</a>
+      <a href="#" class="nav-link" data-section="stats">Stats</a>
+      <a href="#" class="nav-link" data-section="about">About</a>
+    </div>
+    <div class="nav-wpm-badge glass-badge" id="navBadge">
+      <span class="badge-label">BEST</span>
+      <span class="badge-val" id="navBestWpm">—</span>
+      <span class="badge-unit">WPM</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <main class="main-container">
+
+    <section class="hero" id="sectionTest">
+      <div class="hero-title-wrap">
+        <h1 class="hero-title">
+          <span class="title-line">HOW</span>
+          <span class="title-line accent">FAST</span>
+          <span class="title-line">ARE YOU?</span>
+        </h1>
+        <p class="hero-sub">Race against the clock. Measure your true speed.</p>
+      </div>
+
+      <!-- Mode selector -->
+       <div class="text-mode-selector glass-card">
+  <button class="text-mode-btn active" data-textmode="paragraph">Paragraph</button>
+  <button class="text-mode-btn" data-textmode="flow">Flow</button>
+  <button class="text-mode-btn" data-textmode="real">Flux</button>
+</div>
+      <div class="mode-selector glass-card">
+        <button class="mode-btn active" data-mode="15">15s</button>
+        <button class="mode-btn" data-mode="30">30s</button>
+        <button class="mode-btn" data-mode="60">60s</button>
+        <button class="mode-btn" data-mode="custom">Custom</button>
+      </div>
+
+      <!-- Live stats bar -->
+      <div class="live-stats glass-card">
+        <div class="stat-item">
+          <span class="stat-val" id="liveWpm">0</span>
+          <span class="stat-label">WPM</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-val accent-val" id="liveAccuracy">100</span>
+          <span class="stat-label">ACCURACY %</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-val" id="liveTimer">—</span>
+          <span class="stat-label">SECONDS</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-val" id="liveErrors">0</span>
+          <span class="stat-label">ERRORS</span>
+        </div>
+      </div>
+
+      <!-- Typing area -->
+      <div class="typing-wrapper glass-card" id="typingWrapper">
+        <div class="typing-prompt" id="typingPrompt"></div>
+        <div class="typing-cursor-line"></div>
+        <input
+          type="text"
+          class="typing-input"
+          id="typingInput"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          placeholder="Click here and start typing..."
+        />
+        <div class="typing-hint" id="typingHint">
+          <span>⚡ Focus here and start typing to begin</span>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <button class="ctrl-btn glass-btn" id="btnStart">
+          <span class="btn-icon">▶</span> Start
+        </button>
+        <button class="ctrl-btn glass-btn" id="btnReset">
+          <span class="btn-icon">↺</span> Reset
+        </button>
+      </div>
+    </section>
+
+    <!-- RESULTS OVERLAY -->
+    <div class="results-overlay" id="resultsOverlay" style="display:none;">
+      <div class="results-card glass-card">
+        <div class="results-title">
+          <span class="results-icon">🏁</span>
+          <h2>RESULTS</h2>
+        </div>
+        <div class="results-grid">
+          <div class="result-item big">
+            <span class="result-val" id="resWpm">0</span>
+            <span class="result-label">WPM</span>
+          </div>
+          <div class="result-item big">
+            <span class="result-val accent-val" id="resAccuracy">0</span>
+            <span class="result-label">ACCURACY %</span>
+          </div>
+          <div class="result-item">
+            <span class="result-val" id="resCorrect">0</span>
+            <span class="result-label">CORRECT</span>
+          </div>
+          <div class="result-item">
+            <span class="result-val" id="resErrors">0</span>
+            <span class="result-label">ERRORS</span>
+          </div>
+          <div class="result-item">
+            <span class="result-val" id="resChars">0</span>
+            <span class="result-label">CHARS</span>
+          </div>
+          <div class="result-item">
+            <span class="result-val" id="resTime">0</span>
+            <span class="result-label">SECONDS</span>
+          </div>
+        </div>
+        <div class="results-rank" id="resultsRank"></div>
+        <div class="results-actions">
+          <button class="ctrl-btn glass-btn" id="btnTryAgain">⚡ Try Again</button>
+          <button class="ctrl-btn glass-btn secondary" id="btnViewStats">📊 View Stats</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS SECTION -->
+    <section class="section-hidden glass-card stats-section" id="sectionStats">
+      <h2 class="section-title">YOUR STATS</h2>
+      <div class="stats-history" id="statsHistory">
+        <p class="empty-state">No tests yet. Start typing to build your history!</p>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="section-hidden glass-card about-section" id="sectionAbout">
+      <h2 class="section-title">ABOUT TYPEBLITZ</h2>
+      <p>Step into the digital fast lane with TypeBlitz — a sleek, high-speed typing experience engineered to test precision, reaction, and raw keyboard performance. No distractions. No excuses. Just speed.</p>
+      <div class="about-facts">
+        <div class="fact-card glass-badge">
+          <span class="fact-num">~40</span>
+          <span class="fact-desc">Average WPM for most people</span>
+        </div>
+        <div class="fact-card glass-badge">
+          <span class="fact-num">80+</span>
+          <span class="fact-desc">WPM for proficient typists</span>
+        </div>
+        <div class="fact-card glass-badge">
+          <span class="fact-num">120+</span>
+          <span class="fact-desc">WPM for elite typists</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="minimal-footer">
+  <a href="#" id="contactBtn"><span>✉️</span>contact</a>
+  <a href="#"><span>&lt;/&gt;</span> github</a>
+  <a href="#"><span>◉</span> support</a>
+  
+  <a href="#"><span>◫</span> terms</a>
+  <a href="#"><span>◍</span> security</a>
+  <a href="#"><span>◐</span> privacy</a>
+
+  <div class="footer-right">
+    <span>⚙ TypeBlitz Dark</span>
+    <span>v1.0.0</span>
+  </div>
+</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
